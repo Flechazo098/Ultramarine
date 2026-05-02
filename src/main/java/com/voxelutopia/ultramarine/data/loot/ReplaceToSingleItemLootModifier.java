@@ -32,13 +32,9 @@ public class ReplaceToSingleItemLootModifier extends LootModifier {
 
     private final Identifier lootTable;
 
-    public ReplaceToSingleItemLootModifier(LootItemCondition[] conditionsIn, Identifier lootTable) {
-        super(conditionsIn);
-        this.lootTable = lootTable;
-    }
-
-    private ReplaceToSingleItemLootModifier(LootItemCondition[] conditionsIn, String lootTablePath) {
-        this(conditionsIn, Identifier.tryParse(lootTablePath));
+    public ReplaceToSingleItemLootModifier(LootItemCondition[] conditionsIn, int priority, String lootTableId) {
+        super(conditionsIn, priority);
+        this.lootTable = Identifier.tryParse(lootTableId);
     }
 
     @Override

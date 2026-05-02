@@ -19,6 +19,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.NaturalSpawner;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -31,6 +32,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.BreakBlockEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import org.slf4j.Logger;
 
@@ -72,11 +74,27 @@ public class CommonEventHandler {
     }
 
     @SubscribeEvent
-    public static void chiselTableMultiblockBreak(BlockEvent.BreakEvent event) {
+    public static void chiselTableMultiblockBreak(BreakBlockEvent event) {
+        if (event.getLevel().isClientSide()) {
+            return;
+        }
+
         BlockState block = event.getState();
         BlockPos pos = event.getPos();
-        if (block.is(BlockRegistry.PORCELAIN_INLAID_TABLE.get()) && event.getLevel().getBlockState(pos.above()).is(BlockRegistry.CHISEL_TABLE.get()))
-            event.getLevel().setBlock(pos.above(), BlockRegistry.BRUSH_AND_INKSTONE.get().defaultBlockState().setValue(DecorativeBlock.FACING, block.getValue(DecorativeBlock.FACING)), 3);
+        LevelAccessor level = event.getLevel();
+
+        if (block.is(BlockRegistry.PORCELAIN_INLAID_TABLE.get())) {
+            BlockPos abovePos = pos.above();
+            BlockState aboveState = level.getBlockState(abovePos);
+
+            if (aboveState.is(BlockRegistry.CHISEL_TABLE.get())) {
+                BlockState newState = BlockRegistry.BRUSH_AND_INKSTONE.get()
+                        .defaultBlockState()
+                        .setValue(DecorativeBlock.FACING, block.getValue(DecorativeBlock.FACING));
+
+                level.setBlock(abovePos, newState, 3);
+            }
+        }
     }
 
     @SubscribeEvent

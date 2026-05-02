@@ -27,15 +27,11 @@ sourceSets.main.resources {
 }
 
 repositories {
-
-    maven { // JEI
-        url "https://dvs1.progwml6.com/files/maven"
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
     }
-
-    maven { // TOP
-        url "https://maven.k-4u.nl"
-    }
-
     maven {
         url 'https://maven.blamejared.com'
     }
@@ -134,7 +130,7 @@ dependencies {
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
-    implementation "curse.maven:jade-324717:${jade_version_id}"
+    implementation "curse.maven:jade-324717:7938398"
 }
 
 processResources {

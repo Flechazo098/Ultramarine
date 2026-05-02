@@ -27,7 +27,7 @@ public class DataGenerators {
 //            event.addProvider(new ModBlockModelProvider(output));
 //            event.addProvider(new ModItemModelProvider(output));
 //        }
-
+//        event.createProvider(ModGlobalLootModifiersProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
 //            event.addProvider(new ModBlockTagsProvider(output, lookupProvider));
 //            event.addProvider(new ModItemTagsProvider(output, lookupProvider));
