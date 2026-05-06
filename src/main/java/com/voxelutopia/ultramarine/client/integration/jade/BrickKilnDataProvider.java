@@ -1,9 +1,11 @@
 package com.voxelutopia.ultramarine.client.integration.jade;
 
+import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.world.block.entity.BrickKilnBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IServerDataProvider;
@@ -39,8 +41,8 @@ public enum BrickKilnDataProvider implements IServerDataProvider<BlockAccessor> 
     }
 
     @Override
-    public net.minecraft.resources.Identifier getUid() {
-        return BrickKilnComponent.BRICK_KILN;
+    public Identifier getUid() {
+        return Identifier.fromNamespaceAndPath(Ultramarine.MOD_ID, "brick_kiln");
     }
 }
 

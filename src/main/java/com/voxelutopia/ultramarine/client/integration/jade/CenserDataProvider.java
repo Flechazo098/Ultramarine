@@ -1,5 +1,6 @@
 package com.voxelutopia.ultramarine.client.integration.jade;
 
+import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.world.block.entity.CenserBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.Identifier;
@@ -18,7 +19,7 @@ public enum CenserDataProvider implements IServerDataProvider<BlockAccessor> {
 
     @Override
     public Identifier getUid() {
-        return CenserComponent.CENSER_BURN_TIME;
+        return Identifier.fromNamespaceAndPath(Ultramarine.MOD_ID, "censer_burn_time");
     }
 }
 
